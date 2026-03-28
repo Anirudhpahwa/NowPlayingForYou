@@ -1,0 +1,112 @@
+[
+  {
+    "id": "1",
+    "title": "Electric Feel",
+    "artist": "MGMT",
+    "genres": ["indie", "synth-pop", "alternative"],
+    "moods": ["dreamy", "euphoric", "melancholic"],
+    "energy": "medium-high",
+    "situations": ["driving night", "walking", "dreaming", "late night"],
+    "vibe_tags": ["synth", "atmospheric", "groovy", "retro"],
+    "spotify_url": "https://open.spotify.com/track/0Z7pCVbL6J5W_U97kZ6cZf"
+  },
+  {
+    "id": "2",
+    "title": "Blinding Lights",
+    "artist": "The Weeknd",
+    "genres": ["pop", "synth-pop", "r&b"],
+    "moods": ["energetic", "euphoric", "nostalgic"],
+    "energy": "high",
+    "situations": ["driving night", "party", "workout", "going out"],
+    "vibe_tags": ["synth", "80s", "upbeat", "anthem"],
+    "spotify_url": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b"
+  },
+  {
+    "id": "3",
+    "title": "Weightless",
+    "artist": "Marconi Union",
+    "genres": ["ambient", "instrumental", "electronic"],
+    "moods": ["calm", "relaxed", "peaceful", "sleepy"],
+    "energy": "low",
+    "situations": ["sleeping", "meditating", "resting", "night"],
+    "vibe_tags": ["ambient", "soothing", "tranquil", "slow"],
+    "spotify_url": "https://open.spotify.com/track/2f3mbbphijEf2O1S6bE7Y8"
+  },
+  {
+    "id": "4",
+    "title": "Mr. Brightside",
+    "artist": "The Killers",
+    "genres": ["rock", "alternative", "indie rock"],
+    "moods": ["energetic", "confident", "anthemic"],
+    "energy": "high",
+    "situations": ["party", "celebration", "going out", "workout"],
+    "vibe_tags": ["rock", "upbeat", "iconic", "sing-along"],
+    "spotify_url": "https://open.spotify.com/track/0GjEhVFGZW8afUYGChu3Rr"
+  },
+  {
+    "id": "5",
+    "title": "Fix You",
+    "artist": "Coldplay",
+    "genres": ["rock", "alternative", "pop rock"],
+    "moods": ["emotional", "reflective", "hopeful", "melancholic"],
+    "energy": "medium",
+    "situations": ["driving night", "reflecting", "processing emotions"],
+    "vibe_tags": ["anthemic", "emotional", "slow-build", "cathartic"],
+    "spotify_url": "https://open.spotify.com/track/7j2w6Zq57kXwL3L2Z5y8K9"
+  },
+  {
+    "id": "6",
+    "title": "Midnight City",
+    "artist": "M83",
+    "genres": ["synth-pop", "electronic", "indie"],
+    "moods": ["euphoric", "dreamy", "anticipatory"],
+    "energy": "medium-high",
+    "situations": ["driving night", "walking night", "city night", "adventure"],
+    "vibe_tags": ["synth", "atmospheric", "epic", "nostalgic"],
+    "spotify_url": "https://open.spotify.com/track/4Py7hW6hamMbdN4LkZavFj"
+  },
+  {
+    "id": "7",
+    "title": "Inner City Blues",
+    "artist": " Marvin Gaye",
+    "genres": ["soul", "r&b", "motown"],
+    "moods": ["reflective", "melancholic", "thoughtful"],
+    "energy": "low",
+    "situations": ["driving night", "thinking", "walking night"],
+    "vibe_tags": ["soul", "classic", "mellow", "groovy"],
+    "spotify_url": "https://open.spotify.com/track/3L3MvJ7s4dX3Xj9KfZ8yK2"
+  },
+  {
+    "id": "8",
+    "title": "Lose Yourself",
+    "artist": "Eminem",
+    "genres": ["hip-hop", "rap"],
+    "moods": ["determined", "powerful", "motivated", "confident"],
+    "energy": "high",
+    "situations": ["workout", "morning", "pre-game", "motivation"],
+    "vibe_tags": ["hip-hop", "anthem", "intense", "inspirational"],
+    "spotify_url": "https://open.spotify.com/track/7uStaqfwzxE5j4E3i2X5Y7"
+  },
+  {
+    "id": "9",
+    "title": "Ocean Eyes",
+    "artist": "Billie Eilish",
+    "genres": ["pop", "electropop", "indie"],
+    "moods": ["dreamy", "romantic", "soft", "ethereal"],
+    "energy": "low",
+    "situations": ["slow dancing", "dreaming", "night", "romantic"],
+    "vibe_tags": ["soft", "atmospheric", "gentle", "intimate"],
+    "spotify_url": "https://open.spotify.com/track/2XU0oxnq2qxCpomAAuJY8K"
+  },
+  {
+    "id": "10",
+    "title": "Stronger",
+    "artist": "Kanye West",
+    "genres": ["hip-hop", "rap", "electronic"],
+    "moods": ["confident", "powerful", "determined"],
+    "energy": "high",
+    "situations": ["workout", "morning", "motivation", "going out"],
+    "vibe_tags": ["hip-hop", "upbeat", "anthem", "iconic"],
+    "spotify_url": "https://open.spotify.com/track/5sICkBXVmaCQk5aISGR3x1"
+  }
+]
