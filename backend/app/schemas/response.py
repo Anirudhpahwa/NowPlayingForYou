@@ -9,6 +9,9 @@ class Song(BaseModel):
     moods: list[str]
     energy: str
     spotify_url: str
+    situations: list[str] = []
+    vibes: list[str] = []
+    vibe_tags: list[str] = []
 
 
 class RecommendationResult(BaseModel):

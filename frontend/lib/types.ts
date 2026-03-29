@@ -50,6 +50,8 @@ export interface Song {
   moods: string[];
   energy: string;
   spotify_url: string;
+  situations?: string[];
+  vibes?: string[];
 }
 
 export interface RecommendationResult {
