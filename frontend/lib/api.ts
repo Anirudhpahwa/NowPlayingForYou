@@ -1,6 +1,23 @@
-import { RecommendRequest, RecommendResponse, ProfileListResponse, UserTasteProfile } from "./types";
+import { RecommendRequest, RecommendResponse, ProfileListResponse, UserTasteProfile, AnalyzeSituationRequest, AnalyzeSituationResponse, SituationProfile } from "./types";
 
 const API_BASE = "/api";
+
+export async function analyzeSituation(situation: string): Promise<SituationProfile> {
+  const response = await fetch(`${API_BASE}/recommend/analyze-situation`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ situation }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`API error: ${response.statusText}`);
+  }
+
+  const data: AnalyzeSituationResponse = await response.json();
+  return data.situation_profile;
+}
 
 export async function getRecommendations(
   request: RecommendRequest

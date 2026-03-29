@@ -3,6 +3,24 @@ export interface RecommendRequest {
   profile_id?: string;
 }
 
+export type EnergyLevel = "low" | "medium" | "medium-high" | "high";
+
+export interface SituationProfile {
+  raw_text: string;
+  emotions: string[];
+  energy: EnergyLevel;
+  settings: string[];
+  intents: string[];
+}
+
+export interface AnalyzeSituationRequest {
+  situation: string;
+}
+
+export interface AnalyzeSituationResponse {
+  situation_profile: SituationProfile;
+}
+
 export interface TasteZone {
   name: string;
   genres: string[];
