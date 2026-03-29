@@ -20,3 +20,7 @@ class RecommendationResult(BaseModel):
 class RecommendResponse(BaseModel):
     recommendations: list[RecommendationResult]
     situation_analysis: dict | None = None
+
+
+class ProfileListResponse(BaseModel):
+    profiles: list[dict]

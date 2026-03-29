@@ -1,7 +1,21 @@
 export interface RecommendRequest {
   situation: string;
-  genres?: string[];
-  artists?: string[];
+  profile_id?: string;
+}
+
+export interface UserTasteProfile {
+  id: string;
+  name: string;
+  top_genres: string[];
+  top_artists: string[];
+  preferred_energy: string;
+  preferred_mood: string[];
+  listening_frequency: string;
+  preferred_vibes: string[];
+}
+
+export interface ProfileListResponse {
+  profiles: UserTasteProfile[];
 }
 
 export interface Song {
