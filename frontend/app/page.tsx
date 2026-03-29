@@ -87,7 +87,16 @@ export default function Home() {
             <div className="mt-2 p-3 bg-slate-50 rounded-lg text-xs text-slate-600">
               <p><strong>Genres:</strong> {profiles.find(p => p.id === selectedProfile)?.top_genres.join(", ")}</p>
               <p><strong>Artists:</strong> {profiles.find(p => p.id === selectedProfile)?.top_artists.join(", ")}</p>
-              <p><strong>Energy:</strong> {profiles.find(p => p.id === selectedProfile)?.preferred_energy}</p>
+              <div className="mt-2">
+                <p className="font-medium">Taste Zones:</p>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {profiles.find(p => p.id === selectedProfile)?.taste_zones.map((zone, i) => (
+                    <span key={i} className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded">
+                      {zone.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>

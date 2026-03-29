@@ -3,15 +3,21 @@ export interface RecommendRequest {
   profile_id?: string;
 }
 
+export interface TasteZone {
+  name: string;
+  genres: string[];
+  moods: string[];
+  vibes: string[];
+  energy_preference: string;
+}
+
 export interface UserTasteProfile {
   id: string;
   name: string;
   top_genres: string[];
   top_artists: string[];
-  preferred_energy: string;
-  preferred_mood: string[];
+  taste_zones: TasteZone[];
   listening_frequency: string;
-  preferred_vibes: string[];
 }
 
 export interface ProfileListResponse {
