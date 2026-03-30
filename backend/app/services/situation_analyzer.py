@@ -1,9 +1,14 @@
 import json
 import os
-from openai import OpenAI
+from typing import Optional
+
+try:
+    from groq import Groq
+    GROQ_AVAILABLE = True
+except ImportError:
+    GROQ_AVAILABLE = False
 
 from app.schemas.situation import SituationProfile
-from app.schemas.profile import EnergyLevel
 
 
 VALID_EMOTIONS = [
@@ -22,6 +27,8 @@ VALID_INTENTS = [
     "comfort", "motivation", "energy", "focus", "relaxation",
     "celebration", "reflection", "romance", "excitement", "calm"
 ]
+
+VALID_ENERGY_LEVELS = ["low", "medium", "medium-high", "high"]
 
 
 SYSTEM_PROMPT = """You are a music situation analyzer. Given a user's description 
@@ -68,68 +75,87 @@ def validate_and_normalize(
     }
 
 
-VALID_ENERGY_LEVELS = ["low", "medium", "medium-high", "high"]
-
-
 class SituationAnalyzer:
     """
-    Uses LLM to extract structured situation attributes from natural language.
+    Uses Groq LLM to extract structured situation attributes from natural language.
+    Falls back to rule-based analysis if Groq is unavailable.
     """
     
     def __init__(self):
-        api_key = os.getenv("OPENAI_API_KEY")
+        self.client: Optional[Groq] = None
+        self.model = os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile")
+        self.use_groq = False
+        
+        # Try to initialize Groq
+        api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
-            raise ValueError("OPENAI_API_KEY not set")
-        self.client = OpenAI(api_key=api_key)
-        self.model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+            print("GROQ_API_KEY not set - using fallback mode")
+            return
+            
+        if not GROQ_AVAILABLE:
+            print("Groq library not installed - using fallback mode")
+            return
+            
+        try:
+            self.client = Groq(api_key=api_key)
+            self.use_groq = True
+            print(f"Using Groq with model: {self.model}")
+        except Exception as e:
+            print(f"Failed to initialize Groq: {e} - using fallback mode")
     
     def analyze(self, situation_text: str) -> SituationProfile:
         """
         Analyze user situation text and return structured profile.
+        Uses Groq if available, otherwise falls back to rule-based analysis.
         """
-        try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": USER_PROMPT_TEMPLATE.format(situation=situation_text)}
-                ],
-                temperature=0.3,
-                max_tokens=500
-            )
-            
-            content = response.choices[0].message.content.strip()
-            
-            if content.startswith("```"):
-                content = content.split("```")[1]
-                if content.startswith("json"):
-                    content = content[4:]
-                content = content.strip()
-            
-            parsed = json.loads(content)
-            
-            normalized = validate_and_normalize(
-                emotions=parsed.get("emotions", []),
-                energy=parsed.get("energy", "medium"),
-                settings=parsed.get("settings", []),
-                intents=parsed.get("intents", [])
-            )
-            
-            return SituationProfile(
-                raw_text=situation_text,
-                emotions=normalized["emotions"],
-                energy=normalized["energy"],
-                settings=normalized["settings"],
-                intents=normalized["intents"]
-            )
-            
-        except Exception as e:
-            print(f"Situation analysis error: {e}")
-            return self._fallback_analysis(situation_text)
+        if self.use_groq and self.client:
+            try:
+                return self._analyze_with_groq(situation_text)
+            except Exception as e:
+                print(f"Groq analysis failed: {e} - falling back to rule-based")
+        
+        return self._fallback_analysis(situation_text)
+    
+    def _analyze_with_groq(self, situation_text: str) -> SituationProfile:
+        """Use Groq API for situation analysis."""
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": USER_PROMPT_TEMPLATE.format(situation=situation_text)}
+            ],
+            temperature=0.3,
+            max_tokens=500
+        )
+        
+        content = response.choices[0].message.content.strip()
+        
+        if content.startswith("```"):
+            content = content.split("```")[1]
+            if content.startswith("json"):
+                content = content[4:]
+            content = content.strip()
+        
+        parsed = json.loads(content)
+        
+        normalized = validate_and_normalize(
+            emotions=parsed.get("emotions", []),
+            energy=parsed.get("energy", "medium"),
+            settings=parsed.get("settings", []),
+            intents=parsed.get("intents", [])
+        )
+        
+        return SituationProfile(
+            raw_text=situation_text,
+            emotions=normalized["emotions"],
+            energy=normalized["energy"],
+            settings=normalized["settings"],
+            intents=normalized["intents"]
+        )
     
     def _fallback_analysis(self, situation_text: str) -> SituationProfile:
         """
-        Simple fallback if LLM fails.
+        Simple rule-based fallback if LLM is unavailable.
         """
         text_lower = situation_text.lower()
         
