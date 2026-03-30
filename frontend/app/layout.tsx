@@ -13,10 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-        <main className="max-w-2xl mx-auto px-4 py-12">
+      <body className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        <div className="max-w-2xl mx-auto px-6 py-12">
           {children}
-        </main>
+        </div>
       </body>
     </html>
   );
