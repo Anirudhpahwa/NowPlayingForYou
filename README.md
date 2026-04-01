@@ -8,8 +8,6 @@ A full-stack AI application that recommends songs based on your current real-lif
 
 ## Demo
 
-**Live:** [soundtrack.app](#) *(Replace with your deployed URL)*
-
 **Local:**
 ```bash
 # Terminal 1 - Backend
