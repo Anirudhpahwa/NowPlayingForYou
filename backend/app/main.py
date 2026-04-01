@@ -1,3 +1,11 @@
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load .env file explicitly
+env_path = Path(__file__).parent.parent / ".env"
+load_dotenv(env_path)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -22,4 +30,8 @@ app.include_router(recommend.router, prefix="/api", tags=["recommendations"])
 
 @app.get("/api/health")
 def health_check():
-    return {"status": "ok", "message": "Soundtrack API is running"}
+    return {
+        "status": "ok", 
+        "message": "Soundtrack API is running",
+        "groq_enabled": bool(os.getenv("GROQ_API_KEY"))
+    }

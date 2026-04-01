@@ -8,7 +8,7 @@ from app.schemas.profile import UserTasteProfile
 from app.schemas.response import Song
 
 
-SONG_CATALOG_PATH = Path(__file__).parent.parent / "data" / "songs.json"
+SONG_CATALOG_PATH = Path(__file__).parent.parent.parent / "data" / "songs.json"
 
 # Load songs at startup
 _songs_cache: list[Song] | None = None
