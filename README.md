@@ -1,142 +1,135 @@
-# Soundtrack - Contextual Music Recommendation App
+# Soundtrack 🎵
 
-AI-powered music recommendations based on your current real-life situation.
+> AI-powered contextual music recommendations — describe your moment, get the perfect soundtrack.
 
-> "Describe your moment, get the right soundtrack for it."
+A full-stack AI application that recommends songs based on your current real-life situation, mood, and intent — not just genres or algorithms.
 
-## The Problem
+---
 
-Existing music apps require you to think in genres or playlists. When you want music that matches a specific moment ("I'm nervous before a date"), you have no good way to find it.
+## 🚀 Demo
 
-## The Solution
+**Live:** [soundtrack.app](#) *(Replace with your deployed URL)*
 
-This app understands your current situation — not just genre — and recommends songs that fit:
-- The emotional/contextual meaning of your moment
-- Your personal music taste
-
-## Quick Start
-
-### Prerequisites
-- Node.js 18+
-- Python 3.11+
-- Groq API key (get from https://console.groq.com/keys)
-
-### Backend Setup
-
+**Local:**
 ```bash
-cd backend
+# Terminal 1 - Backend
+cd backend && python -m uvicorn app.main:app --reload --port 8000
 
-# Create virtual environment
-python -m venv venv
-venv\Scripts\activate  # On Windows
+# Terminal 2 - Frontend
+cd frontend && npm run dev
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Install Groq
-pip install groq
-
-# Set up environment variables
-# Edit .env and add your Groq API key
-# GROQ_API_KEY=your_key_here
-
-# Run the backend
-uvicorn app.main:app --reload --port 8000
+# Open http://localhost:3000
 ```
 
-Backend runs at: http://localhost:8000
+---
 
-### Frontend Setup
+## ✨ Key Features
 
-```bash
-cd frontend
+| Feature | Description |
+|---------|-------------|
+| **AI Situation Analysis** | Extracts emotion, energy, setting, and intent from natural language using Groq (Llama 3.1) |
+| **Smart Recommendation Engine** | Combines situation match (70%) with user taste (30%) for personalized results |
+| **Multi-dimensional User Profiles** | Supports multiple "taste zones" — reflecting how users enjoy different music in different contexts |
+| **Fallback Mode** | Works without API key using rule-based analysis |
+| **Spotify Integration** | One-click links to play recommended songs |
 
-# Install dependencies
-npm install
+---
 
-# Run the dev server
-npm run dev
-```
-
-Frontend runs at: http://localhost:3000
-
-### Verify Setup
-
-1. Open http://localhost:3000 in your browser
-2. Describe your current moment
-3. Get personalized song recommendations
-
-## Tech Stack
+## 🛠 Tech Stack
 
 | Layer | Technology |
 |-------|------------|
 | **Frontend** | Next.js 14 (App Router), TypeScript, Tailwind CSS |
-| **Backend** | FastAPI, Python 3.11+ |
-| **AI** | Groq (Llama 3.1) |
-| **Storage** | JSON file-based song catalog |
+| **Backend** | FastAPI (Python), Pydantic |
+| **AI** | Groq API (Llama 3.1-8b-instant) |
+| **Data** | JSON song catalog with rich metadata |
 
-## Project Structure
+---
+
+## 🏗 Architecture
 
 ```
-/frontend              - Next.js app
-  /app
-    page.tsx          - Main input page
-    results/          - Recommendations display
-    demo/             - Situation analyzer demo
-  /lib                - API client, types
-
-/backend               - FastAPI app
-  /app
-    /api/routes       - API endpoints
-    /services         - Business logic
-      situation_analyzer.py   - AI situation extraction
-      recommender.py          - Song ranking engine
-    /schemas          - Pydantic models
-  /data
-    songs.json        - Song catalog (100+ songs)
+User Input ("I'm nervous about my date")
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│  Frontend (Next.js)                     │
+│  • SituationInput component              │
+│  • Results display with Spotify links    │
+└───────────────┬─────────────────────────┘
+                │ HTTP POST /api/recommend
+                ▼
+┌─────────────────────────────────────────┐
+│  Backend (FastAPI)                      │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │ Situation Analyzer (Groq)        │   │
+│  │ • Extracts emotions              │   │
+│  │ • Classifies energy level        │   │
+│  │ • Identifies setting & intent    │   │
+│  └─────────────────────────────────┘   │
+│                 │                       │
+│                 ▼                       │
+│  ┌─────────────────────────────────┐   │
+│  │ Recommendation Engine            │   │
+│  │ • Filter by energy compatibility │   │
+│  │ • Score situation match (70%)   │   │
+│  │ • Score taste match (30%)        │   │
+│  │ • Rank and return top songs      │   │
+│  └─────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+                │
+                ▼
+         Ranked Recommendations
+         + "Why this song" explanations
 ```
 
-## Features
+---
 
-### Completed
-- [x] Natural language situation input
-- [x] AI-powered situation analysis (emotion, energy, setting, intent)
-- [x] Curated song catalog (100+ songs with metadata)
-- [x] Multi-dimensional taste profiles (multiple taste zones)
-- [x] Recommendation ranking engine
-- [x] "Why this song" explanations
-- [x] Spotify deep links
-- [x] Fallback mode (rule-based when no API key)
+## 📁 Project Structure
 
-### How It Works
-
-1. **You describe your moment** — "I'm in the metro going to meet my crush and I'm nervous but excited"
-
-2. **AI extracts the situation** — analyzes emotions, energy level, setting, and intent
-
-3. **Engine ranks songs** — combines situation match (70%) with taste match (30%)
-
-4. **You get recommendations** — ranked songs with explanations and Spotify links
-
-## Environment Variables
-
-### Backend (.env)
 ```
-# Groq API Key (required for AI features)
+/frontend                         # Next.js 14 application
+├── app/
+│   ├── page.tsx                 # Main input screen
+│   ├── results/page.tsx         # Recommendations display
+│   └── demo/page.tsx            # Situation analyzer demo
+├── lib/
+│   ├── api.ts                   # API client
+│   └── types.ts                 # TypeScript interfaces
+
+/backend                          # FastAPI application
+├── app/
+│   ├── api/routes/
+│   │   └── recommend.py         # API endpoints
+│   ├── services/
+│   │   ├── situation_analyzer.py # LLM-based situation extraction
+│   │   └── recommender.py        # Song ranking logic
+│   ├── schemas/
+│   │   ├── profile.py           # User taste profile models
+│   │   ├── situation.py         # Situation profile models
+│   │   └── response.py          # API response models
+│   └── main.py                  # FastAPI app entry point
+├── data/
+│   └── songs.json               # Song catalog (100+ songs)
+└── .env                         # Environment variables
+```
+
+---
+
+## 🔧 Configuration
+
+Create `backend/.env`:
+```bash
 GROQ_API_KEY=your_groq_api_key_here
-
-# Optional: Change model (defaults to llama-3.1-70b-versatile)
-GROQ_MODEL=llama-3.1-70b-versatile
+GROQ_MODEL=llama-3.1-8b-instant
 ```
 
-### Fallback Mode
+> **Note:** The app works without a Groq key using rule-based fallback mode.
 
-If no `GROQ_API_KEY` is set, the app uses rule-based fallback analysis. You'll see:
-```
-GROQ_API_KEY not set - using fallback mode
-```
+---
 
-## API Endpoints
+## 📝 API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -145,18 +138,27 @@ GROQ_API_KEY not set - using fallback mode
 | `/api/recommend/profiles` | GET | List mock taste profiles |
 | `/api/health` | GET | Health check |
 
-## Demo
+---
 
-Visit http://localhost:3000/demo to test the situation analyzer separately.
+## 🎯 What I Learned
 
-## Future Enhancements
+- Building a full-stack app with **Next.js + FastAPI**
+- Integrating **LLM APIs** (Groq) for natural language understanding
+- Designing a **recommendation scoring algorithm** with weighted factors
+- Creating **fallback systems** for graceful degradation
+- Implementing **multi-dimensional user profiles** for better personalization
 
-- Spotify integration (connect account for real taste data)
-- More songs in catalog
+---
+
+## 🚧 Future Enhancements
+
+- Spotify API integration for real user data
+- Expand song catalog
 - AI-generated "why" explanations
-- User accounts / history
-- Mobile app
+- User authentication & history
 
-## License
+---
+
+## 📄 License
 
 MIT
