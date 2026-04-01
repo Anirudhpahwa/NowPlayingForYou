@@ -1,4 +1,4 @@
-# Soundtrack 🎵
+# Soundtrack
 
 > AI-powered contextual music recommendations — describe your moment, get the perfect soundtrack.
 
@@ -6,7 +6,7 @@ A full-stack AI application that recommends songs based on your current real-lif
 
 ---
 
-## 🚀 Demo
+## Demo
 
 **Live:** [soundtrack.app](#) *(Replace with your deployed URL)*
 
@@ -23,7 +23,7 @@ cd frontend && npm run dev
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 | Feature | Description |
 |---------|-------------|
@@ -35,7 +35,7 @@ cd frontend && npm run dev
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|------------|
@@ -46,78 +46,78 @@ cd frontend && npm run dev
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 ```
 User Input ("I'm nervous about my date")
-         │
-         ▼
-┌─────────────────────────────────────────┐
-│  Frontend (Next.js)                     │
-│  • SituationInput component              │
-│  • Results display with Spotify links    │
-└───────────────┬─────────────────────────┘
-                │ HTTP POST /api/recommend
-                ▼
-┌─────────────────────────────────────────┐
-│  Backend (FastAPI)                      │
-│                                         │
-│  ┌─────────────────────────────────┐   │
-│  │ Situation Analyzer (Groq)        │   │
-│  │ • Extracts emotions              │   │
-│  │ • Classifies energy level        │   │
-│  │ • Identifies setting & intent    │   │
-│  └─────────────────────────────────┘   │
-│                 │                       │
-│                 ▼                       │
-│  ┌─────────────────────────────────┐   │
-│  │ Recommendation Engine            │   │
-│  │ • Filter by energy compatibility │   │
-│  │ • Score situation match (70%)   │   │
-│  │ • Score taste match (30%)        │   │
-│  │ • Rank and return top songs      │   │
-│  └─────────────────────────────────┘   │
-└─────────────────────────────────────────┘
-                │
-                ▼
-         Ranked Recommendations
-         + "Why this song" explanations
+         |
+         v
++------------------------------------------+
+|  Frontend (Next.js)                     |
+|  - SituationInput component              |
+|  - Results display with Spotify links    |
++---------------+--------------------------+
+                 | HTTP POST /api/recommend
+                 v
++------------------------------------------+
+|  Backend (FastAPI)                      |
+|                                          |
+|  +----------------------------------+   |
+|  | Situation Analyzer (Groq)        |   |
+|  | - Extracts emotions              |   |
+|  | - Classifies energy level        |   |
+|  | - Identifies setting & intent    |   |
+|  +----------------------------------+   |
+|                 |                       |
+|                 v                       |
+|  +----------------------------------+   |
+|  | Recommendation Engine            |   |
+|  | - Filter by energy compatibility |   |
+|  | - Score situation match (70%)   |   |
+|  | - Score taste match (30%)        |   |
+|  | - Rank and return top songs      |   |
+|  +----------------------------------+   |
++------------------------------------------+
+                 |
+                 v
+          Ranked Recommendations
+          + "Why this song" explanations
 ```
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 /frontend                         # Next.js 14 application
-├── app/
-│   ├── page.tsx                 # Main input screen
-│   ├── results/page.tsx         # Recommendations display
-│   └── demo/page.tsx            # Situation analyzer demo
-├── lib/
-│   ├── api.ts                   # API client
-│   └── types.ts                 # TypeScript interfaces
+  /app
+    /page.tsx                 # Main input screen
+    /results/page.tsx        # Recommendations display
+    /demo/page.tsx           # Situation analyzer demo
+  /lib
+    /api.ts                  # API client
+    /types.ts                # TypeScript interfaces
 
 /backend                          # FastAPI application
-├── app/
-│   ├── api/routes/
-│   │   └── recommend.py         # API endpoints
-│   ├── services/
-│   │   ├── situation_analyzer.py # LLM-based situation extraction
-│   │   └── recommender.py        # Song ranking logic
-│   ├── schemas/
-│   │   ├── profile.py           # User taste profile models
-│   │   ├── situation.py         # Situation profile models
-│   │   └── response.py          # API response models
-│   └── main.py                  # FastAPI app entry point
-├── data/
-│   └── songs.json               # Song catalog (100+ songs)
-└── .env                         # Environment variables
+  /app
+    /api/routes
+      /recommend.py          # API endpoints
+    /services
+      /situation_analyzer.py # LLM-based situation extraction
+      /recommender.py        # Song ranking logic
+    /schemas
+      /profile.py            # User taste profile models
+      /situation.py          # Situation profile models
+      /response.py           # API response models
+    /main.py                 # FastAPI app entry point
+  /data
+    /songs.json              # Song catalog (100+ songs)
+  /.env                      # Environment variables
 ```
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 Create `backend/.env`:
 ```bash
@@ -129,7 +129,7 @@ GROQ_MODEL=llama-3.1-8b-instant
 
 ---
 
-## 📝 API Endpoints
+## API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -140,7 +140,7 @@ GROQ_MODEL=llama-3.1-8b-instant
 
 ---
 
-## 🎯 What I Learned
+## What I Learned
 
 - Building a full-stack app with **Next.js + FastAPI**
 - Integrating **LLM APIs** (Groq) for natural language understanding
@@ -150,7 +150,7 @@ GROQ_MODEL=llama-3.1-8b-instant
 
 ---
 
-## 🚧 Future Enhancements
+## Future Enhancements
 
 - Spotify API integration for real user data
 - Expand song catalog
@@ -159,6 +159,6 @@ GROQ_MODEL=llama-3.1-8b-instant
 
 ---
 
-## 📄 License
+## License
 
 MIT
